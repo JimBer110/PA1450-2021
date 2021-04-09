@@ -4,7 +4,7 @@
 
 ## Quick Start
 
-You're currently viewing the branch `skeleton`. This branch contains a skeleton example project with the basics to get you started.
+Yo're currently viewing the branch `skeleton`. This branch contains a skeleton example project with the basics to get you started.
 
 To use the application, you will first need to make sure that your environment supports it. Please see the `virtual-lab-environment` branch for a complete and tested environment for use with this project.
 
