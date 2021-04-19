@@ -1,20 +1,25 @@
 class Case:
-    def __init__(self,fips,admin2,provinceState,countryRegion,lastUpdate,lat,long_,confirmed,deaths,recovered,active,combinedKey,incidentRate,caseFatalityRatio):
-        self.fips = fips
-        self.admin2 = admin2
-        self.provinceState = provinceState
-        self.countryRegion = countryRegion
-        self.lastUpdate = lastUpdate
-        self.lat = lat
-        self.long_ = long_
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
-        self.active = active
-        self.combinedKey = combinedKey
-        self.incidentRate = incidentRate
-        self.caseFatalityRatio = caseFatalityRatio
     
+    def __init__(self):
+        self.form = None
+        self.fips = None
+        self.admin2 = None
+        self.provinceState = None
+        self.countryRegion = None
+        self.lastUpdate = None
+        self.lat = None
+        self.long_ = None
+        self.confirmed = None
+        self.deaths = None
+        self.recovered = None
+        self.active = None
+        self.combinedKey = None
+        self.incidentRate = None
+        self.caseFatalityRatio = None
+        self.IncidenceRate = None
+    
+    def getForm(self):
+        return self.form
     def getFips(self):
         return self.fips
     def getAdmin2(self):
@@ -43,4 +48,38 @@ class Case:
         return self.incidentRate
     def getCaseFatalityRatio(self):
         return self.caseFatalityRatio
+    def getIncidenceRate(self):
+        return self.caseIncidenceRate
   
+    def setForm(self,form):
+        self.form=form
+    def setFips(self,fips):
+        self.fips=fips
+    def setAdmin2(self,admin2):
+        self.admin2=admin2
+    def setProvinceState(self,provinceState):
+        self.provinceState=provinceState
+    def setCountryRegion(self,countryRegion):
+        self.countryRegion=countryRegion
+    def setLastUpdate(self,lastUpdate):
+        self.lastUpdate=lastUpdate
+    def setLat(self,lat):
+        self.lat=lat
+    def setLong(self,long_):
+        self.long_=long_
+    def setConfirmed(self,confirmed):
+        self.confirmed=confirmed
+    def setDeaths(self,deaths):
+        self.deaths=deaths
+    def setRecovered(self,recovered):
+        self.recovered=recovered
+    def setActive(self,active):
+        self.active=active
+    def setCombinedKey(self,combinedKey):
+        self.combinedKey=combinedKey
+    def setIncidentRate(self,incidentRate):
+        self.incidentRate=incidentRate
+    def setCaseFatalityRatio(self,caseFatalityRatio):
+        self.caseFatalityRatio=caseFatalityRatio
+    def setIncidenceRate(self,IncidenceRate):
+        self.IncidenceRate=IncidenceRate
