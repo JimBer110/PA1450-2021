@@ -1,5 +1,5 @@
 import os
-import case
+from application import case
 from datetime import datetime
 
 def importData():
@@ -20,8 +20,10 @@ def importData():
                 else:
                     countries[country][province].append(len(cases))
                 createCase(cases,covid_case,form)
-            
-    return cases, countries
+    data = {}
+    data['cases'] = cases
+    data['countries'] = countries
+    return data
 
 def createCase(listOfCases,caseToAdd,form):
     index = len(listOfCases)

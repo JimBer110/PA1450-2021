@@ -2,7 +2,7 @@
 
 from flask import Flask, send_file
 
-def serve(options):
+def serve(options, data):
     """Serve an API."""
 
     # Create a Flask application

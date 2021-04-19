@@ -2,28 +2,30 @@
 
 from argparse import ArgumentParser
 
-import importer
+from application import importer
 
 from application.commands import serve, greet
 
 def main():
-    cases,countries = importer.importData()
     """Main method of the application."""
+
+    data = importer.importData()
+
     # Create an argument parser for parsing CLI arguments
     parser = ArgumentParser(description="An example application")
     # Create collection of subparsers, one for each command such as "download"
     subparsers = parser.add_subparsers(dest="command")
-    subparsers.required = True 
+    subparsers.required = True
 
     # Add the parser for each specific command
     serve.create_parser(subparsers)
     greet.create_parser(subparsers)
-    
+
     # Parse the arguments and execute the chosen command
     options = parser.parse_args()
-    options.command(options)
+    options.command(options, data)
 
-    
+
 
 if __name__ == "__main__":
     main()
