@@ -1,5 +1,5 @@
 import os
-from application import case
+import case
 from datetime import datetime
 
 def importData():
@@ -50,8 +50,8 @@ def createCase(listOfCases,caseToAdd,form):
                 datetime_object = datetime.strptime(caseToAdd[form['LastUpdate']], '%m/%d/%y %H:%M')
             except:
                 datetime_object = datetime.strptime(caseToAdd[form['LastUpdate']], '%m/%d/%Y %H:%M')
-        listOfCases[index].setLastUpdate(datetime_object)   
-        content.append('LastUpdate')                
+        listOfCases[index].setLastUpdate(datetime_object)
+        content.append('LastUpdate')
     if 'Lat' in form.keys()and caseToAdd[form['Lat']] !='':
         listOfCases[index].setLat(float(caseToAdd[form['Lat']]))
         content.append('Lat')
@@ -83,7 +83,7 @@ def createCase(listOfCases,caseToAdd,form):
         listOfCases[index].setIncidenceRate(float(caseToAdd[form['IncidenceRate']]))
         content.append('IncidenceRate')
     listOfCases[index].setForm(content)
-        
+
 
 def getFormat(line):
     form = {}
@@ -107,7 +107,7 @@ def splitLine(lines):
             if(newlist[word].find('"')!=-1):
                 index.append(word)
                 newlist[word]=newlist[word].replace('"',"")
-                
+
         while (len(index)>0):
             newlist[index[-2]:index[-1]+1]=[''.join(newlist[index[-2]:index[-1]+1])]
             index.pop(-1)
@@ -116,5 +116,5 @@ def splitLine(lines):
     else:
         newlist = lines.split(",")
         newlist[len(newlist)-1]=newlist[len(newlist)-1].rstrip("\n")
-    
+
     return newlist

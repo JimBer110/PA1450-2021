@@ -1,5 +1,5 @@
 class Case:
-    
+
     def __init__(self):
         self.form = None
         self.fips = None
@@ -17,7 +17,8 @@ class Case:
         self.incidentRate = None
         self.caseFatalityRatio = None
         self.IncidenceRate = None
-    
+
+
     def getForm(self):
         return self.form
     def getFips(self):
@@ -29,7 +30,7 @@ class Case:
     def getCountryRegion(self):
         return self.countryRegion
     def getLastUpdate(self):
-        return self.lastUpdate  
+        return self.lastUpdate
     def getLat(self):
         return self.lat
     def getLong(self):
@@ -50,7 +51,7 @@ class Case:
         return self.caseFatalityRatio
     def getIncidenceRate(self):
         return self.caseIncidenceRate
-  
+
     def setForm(self,form):
         self.form=form
     def setFips(self,fips):

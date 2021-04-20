@@ -2,14 +2,20 @@
 
 from argparse import ArgumentParser
 
-from application import importer
+import importer
 
-from application.commands import serve, greet
+import api
+
+from commands import serve, greet
 
 def main():
     """Main method of the application."""
 
     data = importer.importData()
+
+    apiObject = api.API(data)
+
+    del data
 
     # Create an argument parser for parsing CLI arguments
     parser = ArgumentParser(description="An example application")
@@ -23,7 +29,7 @@ def main():
 
     # Parse the arguments and execute the chosen command
     options = parser.parse_args()
-    options.command(options, data)
+    options.command(options, apiObject)
 
 
 

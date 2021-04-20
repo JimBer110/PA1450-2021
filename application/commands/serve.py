@@ -2,7 +2,9 @@
 
 from flask import Flask, send_file
 
-def serve(options, data):
+import api
+
+def serve(options, apiObject):
     """Serve an API."""
 
     # Create a Flask application
@@ -17,6 +19,16 @@ def serve(options, data):
     def greeting(name):
         """Return a greeting for the user."""
         return "Hello, {}!".format(name)
+
+
+    ########################################
+    # API calls
+    ########################################
+
+    @app.route("/API/data")
+    def apiData():
+        return apiObject.getAlldata()
+
 
     app.run(host=options.address, port=options.port, debug=True)
 
