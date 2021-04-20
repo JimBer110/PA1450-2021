@@ -27,7 +27,7 @@ def serve(options, apiObject):
 
     @app.route("/API/data")
     def apiData():
-        return apiObject.getAlldata()
+        return apiObject.getAllData()
 
 
     app.run(host=options.address, port=options.port, debug=True)
