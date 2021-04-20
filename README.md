@@ -1,25 +1,71 @@
 # PA1450
-### Project for the course PA1450 - Software Development at BTH, Sweden
+### Skeleton application
 ***
 
 ## Quick Start
 
-You're currently viewing the branch `main`. This branch contains documentation for the rest of the repository's branches.
+You're currently viewing the branch `skeleton`. This branch contains a skeleton example project with the basics to get you started.
 
-### Virtual Lab Environment
+To use the application, you will first need to make sure that your environment supports it. Please see the `virtual-lab-environment` branch for a complete and tested environment for use with this project.
 
-The branch `virtual-lab-environment` contains detailed instructions for setting up a virtual lab environment fit for the purpose of developing Python software.
+When you're ready to download and start the application, follow these steps:
 
-### Skeleton
+```shell
+# Clone the repository
+git clone https://github.com/AlexGustafsson/PA1450-2021 PA1450
+# Enter the repository and checkout this branch
+cd PA1450
+git checkout skeleton
 
-The branch `skeleton` contains a skeleton Python 3 application for use with a CLI. It features example commands and an example Flask application.
+# Install dependencies
+make install
 
-## Course set-up
+# Start the application by using the wrapper script
+./application.sh
+```
 
-_Taken from the internal course page._
+To run a greeting command use:
 
-The course is organized around several lectures / discussions to introduce the foundations and development models, project meetings and workshops to organise the two project planning, management and execution activities as well. The project planning, management and execution activities will consist in the requirements elicitation and documentation, planning and execution of a software project. This will be carried out twice, following a "traditional" software development model and an agile development process.
+```shell
+./application.sh greet --user "Joe Doe"
+```
 
-These project planning, management and execution activities have the purpose of letting the students try the theory studied as well as gaining some understanding regarding the adoption of the development models and techniques in practical contexts.
+To serve the same functionality as a web-based API, use:
 
-Finally, in the context of the second project planning, management and execution activity a small software development task will be carried out, in which the students, organised in groups of 3 or 4 members will develop a small piece of software to be integrated into a bigger software system.
+```shell
+./application.sh serve
+```
+
+The server will now be available on `http://localhost:8080`.
+
+## Contributing
+
+### Quick Start
+
+First start by downloading the repository:
+
+```shell
+# Clone the repository
+git clone https://github.com/AlexGustafsson/PA1450-2021 PA1450
+```
+
+You can now enter the directory and install the dependencies:
+
+```shell
+# Enter the repository and checkout this branch
+cd PA1450
+git checkout skeleton
+
+# Install dependencies
+make install
+```
+
+You're now ready to develop the application.
+
+### Project structure
+
+The main entrypoint of the application is the `application/main.py` file. It contains the command line argument parser which is in charge of interfacing with the user in order to start the application.
+
+Each available command is located within the `application/commands` directory. Each command file defines a `create_parser` method which sets up the command's command line argument parser.
+
+Lastly, the `www` directory contains the static web files used for the demonstrational website.

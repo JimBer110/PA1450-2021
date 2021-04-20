@@ -8,8 +8,5 @@ __pycache__
 # Ignore macOS .DS_Store files
 .DS_Store
 
-# Ignore the data directory (default for output of downloaded data)
-/data
-
 # Ignore .vscode
 .vscode
