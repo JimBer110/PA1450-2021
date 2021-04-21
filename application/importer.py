@@ -29,12 +29,12 @@ def createCase(listOfCases,caseToAdd,form):
     index = len(listOfCases)
     listOfCases.append(case.Case())
     content=[]
-    if 'FIPS' in form.keys() and caseToAdd[form['FIPS']] !='':
-        listOfCases[index].setFips(int(caseToAdd[form['FIPS']]))
-        content.append('FIPS')
-    if 'Admin2' in form.keys()and caseToAdd[form['Admin2']] !='':
-        listOfCases[index].setAdmin2(caseToAdd[form['Admin2']])
-        content.append('Admin2')
+    #if 'FIPS' in form.keys() and caseToAdd[form['FIPS']] !='':
+    #    listOfCases[index].setFips(int(caseToAdd[form['FIPS']]))
+    #    content.append('FIPS')
+    #if 'Admin2' in form.keys()and caseToAdd[form['Admin2']] !='':
+    #    listOfCases[index].setAdmin2(caseToAdd[form['Admin2']])
+    #    content.append('Admin2')
     if 'ProvinceState' in form.keys()and caseToAdd[form['ProvinceState']] !='':
         listOfCases[index].setProvinceState(caseToAdd[form['ProvinceState']])
         content.append('ProvinceState')
@@ -70,18 +70,18 @@ def createCase(listOfCases,caseToAdd,form):
     if 'Active' in form.keys()and caseToAdd[form['Active']] !='':
         listOfCases[index].setActive(int(caseToAdd[form['Active']]))
         content.append('Active')
-    if 'CombinedKey' in form.keys()and caseToAdd[form['CombinedKey']] !='':
-        listOfCases[index].setCombinedKey(caseToAdd[form['CombinedKey']])
-        content.append('CombinedKey')
-    if 'IncidentRate' in form.keys()and caseToAdd[form['IncidentRate']] !='':
-        listOfCases[index].setIncidentRate(float(caseToAdd[form['IncidentRate']]))
-        content.append('IncidentRate')
-    if 'CaseFatalityRatio' in form.keys()and caseToAdd[form['CaseFatalityRatio']] !='' and caseToAdd[form['CaseFatalityRatio']] !='#DIV/0!':
-        listOfCases[index].setCaseFatalityRatio(float(caseToAdd[form['CaseFatalityRatio']]))
-        content.append('CaseFatalityRatio')
-    if 'IncidenceRate' in form.keys()and caseToAdd[form['IncidenceRate']] !='':
-        listOfCases[index].setIncidenceRate(float(caseToAdd[form['IncidenceRate']]))
-        content.append('IncidenceRate')
+    #if 'CombinedKey' in form.keys()and caseToAdd[form['CombinedKey']] !='':
+    #    listOfCases[index].setCombinedKey(caseToAdd[form['CombinedKey']])
+    #    content.append('CombinedKey')
+    #if 'IncidentRate' in form.keys()and caseToAdd[form['IncidentRate']] !='':
+    #    listOfCases[index].setIncidentRate(float(caseToAdd[form['IncidentRate']]))
+    #    content.append('IncidentRate')
+    #if 'CaseFatalityRatio' in form.keys()and caseToAdd[form['CaseFatalityRatio']] !='' and caseToAdd[form['CaseFatalityRatio']] !='#DIV/0!':
+    #    listOfCases[index].setCaseFatalityRatio(float(caseToAdd[form['CaseFatalityRatio']]))
+    #    content.append('CaseFatalityRatio')
+    #if 'IncidenceRate' in form.keys()and caseToAdd[form['IncidenceRate']] !='':
+    #    listOfCases[index].setIncidenceRate(float(caseToAdd[form['IncidenceRate']]))
+    #    content.append('IncidenceRate')
     listOfCases[index].setForm(content)
 
 
