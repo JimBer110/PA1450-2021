@@ -33,17 +33,20 @@ class API:
         if _to != None:
             _to = datetime.datetime.strptime(_to, "%Y-%m-%d")
 
+
+        print(_from, _to)
+
         for i in range(len(self.data['cases'])):
             if _from != None:
-                if self.data['cases'][i].getLastUpdate() > _from:
+                if self.data['cases'][i].getLastUpdate() >= _from:
                     if _to != None:
-                        if self.data['cases'][i].getLastUpdate() < _to:
+                        if self.data['cases'][i].getLastUpdate() <= _to:
                             tmp.append(self.reformatData(self.data['cases'][i]))
-                        else:
-                            tmp.append(self.reformatData(self.data['cases'][i]))
+                    else:
+                        tmp.append(self.reformatData(self.data['cases'][i]))
             else:
                 if _to != None:
-                    if self.data['cases'][i] < _to:
+                    if self.data['cases'][i] <= _to:
                         tmp.append(self.reformatData(self.data['cases'][i]))
                 else:
                     tmp.append(self.reformatData(self.data['cases'][i]))
