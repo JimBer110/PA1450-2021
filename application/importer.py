@@ -52,12 +52,12 @@ def createCase(listOfCases,caseToAdd,form):
                 datetime_object = datetime.strptime(caseToAdd[form['LastUpdate']], '%m/%d/%Y %H:%M')
         listOfCases[index].setLastUpdate(datetime_object)
         content.append('LastUpdate')
-    if 'Lat' in form.keys()and caseToAdd[form['Lat']] !='':
-        listOfCases[index].setLat(float(caseToAdd[form['Lat']]))
-        content.append('Lat')
-    if 'Long' in form.keys()and caseToAdd[form['Long']] !='':
-        listOfCases[index].setLong(float(caseToAdd[form['Long']]))
-        content.append('Long')
+    #if 'Lat' in form.keys()and caseToAdd[form['Lat']] !='':
+    #    listOfCases[index].setLat(float(caseToAdd[form['Lat']]))
+    #    content.append('Lat')
+    #if 'Long' in form.keys()and caseToAdd[form['Long']] !='':
+    #    listOfCases[index].setLong(float(caseToAdd[form['Long']]))
+    #    content.append('Long')
     if 'Confirmed' in form.keys()and caseToAdd[form['Confirmed']] !='':
         listOfCases[index].setConfirmed(int(caseToAdd[form['Confirmed']]))
         content.append('Confirmed')
