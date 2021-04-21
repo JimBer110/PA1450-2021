@@ -7,8 +7,8 @@ class Case:
         self.provinceState = None
         self.countryRegion = None
         self.lastUpdate = None
-        self.lat = None
-        self.long_ = None
+        #self.lat = None
+        #self.long_ = None
         self.confirmed = None
         self.deaths = None
         self.recovered = None
@@ -31,10 +31,10 @@ class Case:
         return self.countryRegion
     def getLastUpdate(self):
         return self.lastUpdate
-    def getLat(self):
-        return self.lat
-    def getLong(self):
-        return self.long_
+    #def getLat(self):
+    #    return self.lat
+    #def getLong(self):
+    #    return self.long_
     def getConfirmed(self):
         return self.confirmed
     def getDeaths(self):
@@ -64,10 +64,10 @@ class Case:
         self.countryRegion=countryRegion
     def setLastUpdate(self,lastUpdate):
         self.lastUpdate=lastUpdate
-    def setLat(self,lat):
-        self.lat=lat
-    def setLong(self,long_):
-        self.long_=long_
+    #def setLat(self,lat):
+    #    self.lat=lat
+    #def setLong(self,long_):
+    #    self.long_=long_
     def setConfirmed(self,confirmed):
         self.confirmed=confirmed
     def setDeaths(self,deaths):
