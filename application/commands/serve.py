@@ -29,6 +29,14 @@ def serve(options, apiObject):
     def apiData():
         return apiObject.getAllData()
 
+    @app.route("/API/data/timespan/<_from>/<_to>")
+    def dataInTimeSpan(_from, _to):
+        if _from == "NULL":
+            _from = None
+        if _to == "NULL":
+            _to = None
+        return apiObject.getDataInTimespan(_from, _to)
+
 
     app.run(host=options.address, port=options.port, debug=True)
 
