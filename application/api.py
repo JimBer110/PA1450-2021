@@ -33,9 +33,6 @@ class API:
         if _to != None:
             _to = datetime.datetime.strptime(_to, "%Y-%m-%d")
 
-
-        print(_from, _to)
-
         for i in range(len(self.data['cases'])):
             if _from != None:
                 if self.data['cases'][i].getLastUpdate() >= _from:
@@ -54,3 +51,29 @@ class API:
         tmp = sorted(tmp, key=lambda e: e['update'])
 
         return {'cases': tmp}
+
+
+    def getConfirmedCountryInTimespan(self, _from, _to):
+        tmp = {}
+
+        if _from != None:
+            _from = datetime.datetime.strptime(_from, "%Y-%m-%d").strftime('%Y-%m-%d')
+        if _to != None:
+            _to = datetime.datetime.strptime(_to, "%Y-%m-%d").strftime('%Y-%m-%d')
+
+
+        for key in self.data['countries'].keys():
+            start = 0
+            end = 0
+            countryList = []
+            for _key in self.data['countries'][key].keys():
+                countryList += self.data['countries'][key][_key]
+            for i in countryList:
+                if self.data['cases'][i].getLastUpdate().strftime('%Y-%m-%d') == _from:
+                    start += self.data['cases'][i].getConfirmed()
+                if self.data['cases'][i].getLastUpdate().strftime('%Y-%m-%d') == _to:
+                    end += self.data['cases'][i].getConfirmed()
+            tmp[key] = end - start
+
+        return tmp
+
