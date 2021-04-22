@@ -129,7 +129,7 @@ def downloadData():
         os.remove(os.path.join(myDir, f))
     url = 'https://github.com/CSSEGISandData/COVID-19/archive/refs/heads/master.zip'
     with urllib.request.urlopen(url) as dl_file:
-        with open(os.path.dirname(__file__)+"/covid_case_data/test.zip", 'wb') as out_file:
+        with open(myDir+"test.zip", 'wb') as out_file:
             out_file.write(dl_file.read())
     with ZipFile(myDir+'test.zip', 'r') as zipObj:
         zipObj.extractall(myDir)
