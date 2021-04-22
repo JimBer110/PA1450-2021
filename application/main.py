@@ -11,10 +11,9 @@ from commands import serve, greet
 def main():
     """Main method of the application."""
 
+    importer.downloadData()
     data = importer.importData()
-
     apiObject = api.API(data)
-
     del data
 
     # Create an argument parser for parsing CLI arguments

@@ -1,25 +1,29 @@
 import os
+import urllib.request
 import case
+from zipfile import ZipFile
 from datetime import datetime
 
 def importData():
     cases = []
     countries = {}
-    for fileName in os.listdir(os.path.dirname(__file__)+"/covid_case_data/"):
-        with open(os.path.dirname(__file__)+"/covid_case_data/"+fileName, encoding='utf-8-sig') as f:
-            text = f.readlines()
-            form = getFormat(text[0])
-            for line in text[1:]:
-                covid_case=splitLine(line)
-                country = covid_case[form['CountryRegion']].replace(" ", "")
-                province = covid_case[form['ProvinceState']].replace(" ", "")
-                if (country not in countries.keys()):
-                    countries.update({country:{province:[len(cases)]}})
-                elif province not in countries[country].keys():
-                    countries[country].update({province:[len(cases)]})
-                else:
-                    countries[country][province].append(len(cases))
-                createCase(cases,covid_case,form)
+    for fileName in os.listdir(os.path.dirname(__file__)+"/covid_case_data/COVID-19-master/csse_covid_19_data/csse_covid_19_daily_reports/"):
+        if (fileName[-4:]=='.csv'):
+            with open(os.path.dirname(__file__)+"/covid_case_data/COVID-19-master/csse_covid_19_data/csse_covid_19_daily_reports/"+fileName, encoding='utf-8-sig') as f:
+
+                text = f.readlines()
+                form = getFormat(text[0])
+                for line in text[1:]:
+                    covid_case=splitLine(line)
+                    country = covid_case[form['CountryRegion']].replace(" ", "")
+                    province = covid_case[form['ProvinceState']].replace(" ", "")
+                    if (country not in countries.keys()):
+                        countries.update({country:{province:[len(cases)]}})
+                    elif province not in countries[country].keys():
+                        countries[country].update({province:[len(cases)]})
+                    else:
+                        countries[country][province].append(len(cases))
+                    createCase(cases,covid_case,form)
     data = {}
     data['cases'] = cases
     data['countries'] = countries
@@ -118,3 +122,14 @@ def splitLine(lines):
         newlist[len(newlist)-1]=newlist[len(newlist)-1].rstrip("\n")
 
     return newlist
+
+def downloadData():
+    myDir = os.path.dirname(__file__)+"/covid_case_data/"
+    for f in os.listdir(myDir):
+        os.remove(os.path.join(myDir, f))
+    url = 'https://github.com/CSSEGISandData/COVID-19/archive/refs/heads/master.zip'
+    with urllib.request.urlopen(url) as dl_file:
+        with open(os.path.dirname(__file__)+"/covid_case_data/test.zip", 'wb') as out_file:
+            out_file.write(dl_file.read())
+    with ZipFile(myDir+'test.zip', 'r') as zipObj:
+        zipObj.extractall(myDir)
