@@ -10,3 +10,6 @@ __pycache__
 
 # Ignore .vscode
 .vscode
+
+# Ignore covid_case_data/
+covid_case_data/
