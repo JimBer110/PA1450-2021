@@ -1,4 +1,5 @@
 import os
+import shutil
 import urllib.request
 import case
 from zipfile import ZipFile
@@ -124,12 +125,13 @@ def splitLine(lines):
     return newlist
 
 def downloadData():
-    myDir = os.path.dirname(__file__)+"/covid_case_data/"
-    for f in os.listdir(myDir):
-        os.remove(os.path.join(myDir, f))
+    path = os.path.dirname(__file__)+"/covid_case_data/"
+    if os.path.exists(path):
+        shutil.rmtree(path)
     url = 'https://github.com/CSSEGISandData/COVID-19/archive/refs/heads/master.zip'
+    os.mkdir(path)
     with urllib.request.urlopen(url) as dl_file:
-        with open(myDir+"test.zip", 'wb') as out_file:
+        with open(path+"data.zip", 'wb') as out_file:
             out_file.write(dl_file.read())
-    with ZipFile(myDir+'test.zip', 'r') as zipObj:
-        zipObj.extractall(myDir)
+    with ZipFile(path+'data.zip', 'r') as zipObj:
+        zipObj.extractall(path)
