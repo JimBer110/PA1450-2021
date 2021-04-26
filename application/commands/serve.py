@@ -46,7 +46,7 @@ def serve(options, apiObject):
         return apiObject.getConfirmedCountryInTimespan(_from, _to)
 
 
-    app.run(host=options.address, port=options.port, debug=True)
+    app.run(host=options.address, port=options.port, debug=False)
 
 def create_parser(subparsers):
     """Create an argument parser for the "serve" command."""

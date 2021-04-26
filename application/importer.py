@@ -140,17 +140,17 @@ def downloadData():
     removeData(path)
     os.mkdir(path)
     url = 'https://github.com/CSSEGISandData/COVID-19/archive/refs/heads/master.zip'
-    filesize = int(requests.head(url).headers["Content-Length"])
+    r = requests.get(url, stream=True)
+    filesize = int(r.headers["content-length"])
     filename = os.path.basename(url)
     dl_path = os.path.join(path, filename)
     chunk_size = 1024
-    with requests.get(url, stream=True) as r, open(dl_path, "wb") as f, tqdm(
+    with r, open(dl_path, "wb") as f, tqdm(
             unit="B",  
             unit_scale=True,  
             unit_divisor=1024,
-            total=filesize,  
-            file=sys.stdout,
-            desc=filename  
+            total=filesize,
+            desc="Fetching " + filename
     ) as progress:
         for chunk in r.iter_content(chunk_size=chunk_size):
             datasize = f.write(chunk)
