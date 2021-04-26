@@ -1,14 +1,18 @@
 import os
 import shutil
-import urllib.request
 import case
 from zipfile import ZipFile
 from datetime import datetime
+from tqdm import tqdm
+from pathlib import Path
+import requests
+import sys
 
 def importData():
     cases = []
     countries = {}
-    for fileName in os.listdir(os.path.dirname(__file__)+"/covid_case_data/COVID-19-master/csse_covid_19_data/csse_covid_19_daily_reports/"):
+    print("\nInitializing data")
+    for fileName in tqdm(os.listdir(os.path.dirname(__file__)+"/covid_case_data/COVID-19-master/csse_covid_19_data/csse_covid_19_daily_reports/")):
         if (fileName[-4:]=='.csv'):
             with open(os.path.dirname(__file__)+"/covid_case_data/COVID-19-master/csse_covid_19_data/csse_covid_19_daily_reports/"+fileName, encoding='utf-8-sig') as f:
 
@@ -25,6 +29,8 @@ def importData():
                     else:
                         countries[country][province].append(len(cases))
                     createCase(cases,covid_case,form)
+    print("\nData imported successfully\n")
+    removeData(os.path.dirname(__file__)+"/covid_case_data/")
     data = {}
     data['cases'] = cases
     data['countries'] = countries
@@ -124,14 +130,31 @@ def splitLine(lines):
 
     return newlist
 
-def downloadData():
-    path = os.path.dirname(__file__)+"/covid_case_data/"
+def removeData(path):
     if os.path.exists(path):
         shutil.rmtree(path)
-    url = 'https://github.com/CSSEGISandData/COVID-19/archive/refs/heads/master.zip'
+
+def downloadData():
+    print("\nDownloading data")
+    path = os.path.dirname(__file__)+"/covid_case_data/"
+    removeData(path)
     os.mkdir(path)
-    with urllib.request.urlopen(url) as dl_file:
-        with open(path+"data.zip", 'wb') as out_file:
-            out_file.write(dl_file.read())
-    with ZipFile(path+'data.zip', 'r') as zipObj:
+    url = 'https://github.com/CSSEGISandData/COVID-19/archive/refs/heads/master.zip'
+    filesize = int(requests.head(url).headers["Content-Length"])
+    filename = os.path.basename(url)
+    dl_path = os.path.join(path, filename)
+    chunk_size = 1024
+    with requests.get(url, stream=True) as r, open(dl_path, "wb") as f, tqdm(
+            unit="B",  
+            unit_scale=True,  
+            unit_divisor=1024,
+            total=filesize,  
+            file=sys.stdout,
+            desc=filename  
+    ) as progress:
+        for chunk in r.iter_content(chunk_size=chunk_size):
+            datasize = f.write(chunk)
+            progress.update(datasize)
+    print("\nExtracting files")
+    with ZipFile(path+'master.zip', 'r') as zipObj:
         zipObj.extractall(path)
