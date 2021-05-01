@@ -1,6 +1,7 @@
 """Module for serving an API."""
 
-from flask import Flask, send_file
+from flask import Flask, send_file, send_from_directory
+from flask_cors import CORS
 
 import api
 
@@ -9,6 +10,7 @@ def serve(options, apiObject):
 
     # Create a Flask application
     app = Flask(__name__)
+    cors = CORS(app)
 
     @app.route("/")
     def index():
@@ -24,6 +26,10 @@ def serve(options, apiObject):
     ########################################
     # API calls
     ########################################
+
+    @app.route("/js/<_path>")
+    def send_js(_path):
+        return send_from_directory('../www/js/', _path)
 
     @app.route("/API/data")
     def apiData():

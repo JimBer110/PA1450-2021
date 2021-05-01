@@ -83,17 +83,16 @@ class API:
         tmp = {}
         _from = datetime.datetime.strptime(_from, "%Y-%m-%d")
         _to = datetime.datetime.strptime(_to, "%Y-%m-%d")
+
         for i in datetime_calendar.daterange(_from, _to):
-            tmp[str(i)] = 0
+            tmp[str(i.strftime('%Y-%m-%d'))] = 0
         if _country == "worldwide":
-            for key in tmp.keys():
-                for case in self.data['cases']:
-                    if case.getLastUpdate().strftime('%Y-%m-%d') == datetime.datetime.strptime(key, "%Y-%m-%d %H:%M:%S").strftime('%Y-%m-%d'):
-                        tmp[key] += case.getConfirmed()
+            for case in self.data['cases']:
+                if case.getLastUpdate().strftime('%Y-%m-%d') in tmp.keys():
+                    tmp[str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
         else:
-            for key in tmp.keys():
-                for case in self.data['cases']:
-                    if case.getCountryRegion() == _country:
-                        if case.getLastUpdate().strftime('%Y-%m-%d') == datetime.datetime.strptime(key, "%Y-%m-%d %H:%M:%S").strftime('%Y-%m-%d'):
-                            tmp[key] += case.getConfirmed()
+            for case in self.data['cases']:
+                if case.getCountryRegion() == _country:
+                    if case.getLastUpdate().strftime('%Y-%m-%d') in tmp.keys():
+                        tmp[str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
         return tmp
