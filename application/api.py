@@ -1,5 +1,6 @@
 """API Base class"""
 import datetime
+import datetime_calendar
 
 class API:
     def __init__(self, data):
@@ -77,3 +78,22 @@ class API:
 
         return tmp
 
+
+    def getTotalCasesForCountryInTimespan(self, _from, _to, _country):
+        tmp = {}
+        _from = datetime.datetime.strptime(_from, "%Y-%m-%d")
+        _to = datetime.datetime.strptime(_to, "%Y-%m-%d")
+        for i in datetime_calendar.daterange(_from, _to):
+            tmp[str(i)] = 0
+        if _country == "worldwide":
+            for key in tmp.keys():
+                for case in self.data['cases']:
+                    if case.getLastUpdate().strftime('%Y-%m-%d') == datetime.datetime.strptime(key, "%Y-%m-%d %H:%M:%S").strftime('%Y-%m-%d'):
+                        tmp[key] += case.getConfirmed()
+        else:
+            for key in tmp.keys():
+                for case in self.data['cases']:
+                    if case.getCountryRegion() == _country:
+                        if case.getLastUpdate().strftime('%Y-%m-%d') == datetime.datetime.strptime(key, "%Y-%m-%d %H:%M:%S").strftime('%Y-%m-%d'):
+                            tmp[key] += case.getConfirmed()
+        return tmp
