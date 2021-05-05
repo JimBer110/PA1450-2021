@@ -4,9 +4,23 @@
     <meta charset="utf-8">
     <title>Covid tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./styles/style.css">
   </head>
   <body>
-    <canvas id="totalCases" width="300" height="300"></canvas>
+
+    <div class="wrapper">
+      <form id="updateForm">
+
+        <select id="countries" name="countries">
+          <option value="worldwide">Worldwide</option>
+        </select>
+
+        <input type="date" name="" value="">
+        <input type="date" name="" value="">
+        <button type="button" name="button" onclick="update()">Update</button>
+      </form>
+      <canvas id="totalCases" width="300" height="300"></canvas>
+    </div>
     <script type="text/javascript" src="./js/plotting.js"></script>
   </body>
 </html>

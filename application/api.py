@@ -54,6 +54,15 @@ class API:
         return {'cases': tmp}
 
 
+    def getCountries(self):
+        tmp = {'countries': []}
+
+        for key in self.data['countries'].keys():
+            tmp['countries'].append(key)
+
+        return tmp
+
+
     def getConfirmedCountryInTimespan(self, _from, _to):
         tmp = {}
 
@@ -89,7 +98,9 @@ class API:
         if _country == "worldwide":
             for case in self.data['cases']:
                 if case.getLastUpdate().strftime('%Y-%m-%d') in tmp.keys():
-                    tmp[str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
+                    if case.getConfirmed() != None:
+                        tmp[str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
+                        
         else:
             for case in self.data['cases']:
                 if case.getCountryRegion() == _country:

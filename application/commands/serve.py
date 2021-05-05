@@ -31,9 +31,17 @@ def serve(options, apiObject):
     def send_js(_path):
         return send_from_directory('../www/js/', _path)
 
+    @app.route("/styles/<_path>")
+    def send_styles(_path):
+        return send_from_directory('../www/styles/', _path)
+
     @app.route("/API/data")
     def apiData():
         return apiObject.getAllData()
+
+    @app.route("/API/countries")
+    def apiCountries():
+        return apiObject.getCountries()
 
     @app.route("/API/data/timespan/<_from>/<_to>")
     def dataInTimeSpan(_from, _to):
