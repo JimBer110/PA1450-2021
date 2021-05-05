@@ -1,6 +1,7 @@
 """API Base class"""
 import datetime
 import datetime_calendar
+import recent_cases
 
 class API:
     def __init__(self, data):
@@ -100,10 +101,17 @@ class API:
                 if case.getLastUpdate().strftime('%Y-%m-%d') in tmp.keys():
                     if case.getConfirmed() != None:
                         tmp[str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
-                        
+
         else:
             for case in self.data['cases']:
                 if case.getCountryRegion() == _country:
                     if case.getLastUpdate().strftime('%Y-%m-%d') in tmp.keys():
                         tmp[str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
+        return tmp
+
+    def getListOfCountriesByNewCasesPerCap(self):
+        result, countries = recent_cases.getListCountriesBasedOnNewCasesPerCapita()
+        tmp = {'countries': []}
+        for i in result:
+            tmp['countries'].append((i, countries[i]))
         return tmp

@@ -35,6 +35,10 @@ def serve(options, apiObject):
     def send_styles(_path):
         return send_from_directory('../www/styles/', _path)
 
+    @app.route("/API/newCasesPerCapita")
+    def newCasesPerCapita():
+        return apiObject.getListOfCountriesByNewCasesPerCap()
+
     @app.route("/API/data")
     def apiData():
         return apiObject.getAllData()
