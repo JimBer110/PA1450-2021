@@ -1,5 +1,6 @@
 """API Base class"""
 import datetime
+import datetime_calendar
 
 class API:
     def __init__(self, data):
@@ -53,6 +54,15 @@ class API:
         return {'cases': tmp}
 
 
+    def getCountries(self):
+        tmp = {'countries': []}
+
+        for key in self.data['countries'].keys():
+            tmp['countries'].append(key)
+
+        return tmp
+
+
     def getConfirmedCountryInTimespan(self, _from, _to):
         tmp = {}
 
@@ -77,3 +87,23 @@ class API:
 
         return tmp
 
+
+    def getTotalCasesForCountryInTimespan(self, _from, _to, _country):
+        tmp = {}
+        _from = datetime.datetime.strptime(_from, "%Y-%m-%d")
+        _to = datetime.datetime.strptime(_to, "%Y-%m-%d")
+
+        for i in datetime_calendar.daterange(_from, _to):
+            tmp[str(i.strftime('%Y-%m-%d'))] = 0
+        if _country == "worldwide":
+            for case in self.data['cases']:
+                if case.getLastUpdate().strftime('%Y-%m-%d') in tmp.keys():
+                    if case.getConfirmed() != None:
+                        tmp[str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
+                        
+        else:
+            for case in self.data['cases']:
+                if case.getCountryRegion() == _country:
+                    if case.getLastUpdate().strftime('%Y-%m-%d') in tmp.keys():
+                        tmp[str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
+        return tmp
