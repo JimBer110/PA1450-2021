@@ -5,6 +5,8 @@ from flask_cors import CORS
 
 import api
 
+import exporter
+
 def serve(options, apiObject):
     """Serve an API."""
 
@@ -73,6 +75,18 @@ def serve(options, apiObject):
             _country = "worldwide"
         return apiObject.getTotalCasesForCountryInTimespan(_from, _to, _country)
 
+    @app.route("/download/<_country>/<_from>/<_to>/<_data>")
+    def download(_country,_from,_to,_data):
+        if _from == "NULL":
+            _from = None
+        if _to == "NULL":
+            _to = None
+        if _country == "NULL":
+            _country = "worldwide"
+        if _data == "NULL":
+            _data = "1111"
+        temp = apiObject.getDataInTimespan(_from, _to)
+        return send_from_directory(exporter.createFile(temp,_data,_country), 'export.json',as_attachment=True)
 
     app.run(host=options.address, port=options.port, debug=False)
 
