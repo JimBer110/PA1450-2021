@@ -13,3 +13,6 @@ __pycache__
 
 # Ignore covid_case_data/
 covid_case_data/
+
+#ignore export.json
+export.json
