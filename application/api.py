@@ -8,6 +8,7 @@ import os
 class API:
     def __init__(self, data):
         self.data = data
+        # https://www.svt.se/special/articledata/3362/fohm_vaccin.json
         self.vaccinations = None;
         with open(os.path.join(os.path.dirname(__file__), 'vaccin.json'), "r") as f:
             self.vaccinations = json.load(f)
