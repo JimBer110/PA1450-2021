@@ -2,10 +2,15 @@
 import datetime
 import datetime_calendar
 import recent_cases
+import json
+import os
 
 class API:
     def __init__(self, data):
         self.data = data
+        self.vaccinations = None;
+        with open(os.path.join(os.path.dirname(__file__), 'vaccin.json'), "r") as f:
+            self.vaccinations = json.load(f)
 
 
     def reformatData(self, _case):
@@ -90,23 +95,35 @@ class API:
 
 
     def getTotalCasesForCountryInTimespan(self, _from, _to, _country):
-        tmp = {}
+        tmp = {'cases': {}, 'vaccin': {}}
         _from = datetime.datetime.strptime(_from, "%Y-%m-%d")
         _to = datetime.datetime.strptime(_to, "%Y-%m-%d")
 
+
         for i in datetime_calendar.daterange(_from, _to):
-            tmp[str(i.strftime('%Y-%m-%d'))] = 0
+            tmp['cases'][str(i.strftime('%Y-%m-%d'))] = 0
+            if _country == "Sweden":
+                tmp['vaccin'][str(i.strftime('%Y-%m-%d'))] = 0
         if _country == "worldwide":
             for case in self.data['cases']:
-                if case.getLastUpdate().strftime('%Y-%m-%d') in tmp.keys():
+                if case.getLastUpdate().strftime('%Y-%m-%d') in tmp['cases'].keys():
                     if case.getConfirmed() != None:
-                        tmp[str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
+                        tmp['cases'][str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
 
         else:
+            if _country == "Sweden":
+                for case in self.vaccinations['vaccinationer_tidsserie']:
+                    if (case['mapregion'] != "Sverige"):
+                        continue
+                    for i in range(7):
+                        vaccinDate = datetime.datetime.strptime(str(case['ar']) + "-" + str(case['vecka']) + '-' + str(i), "%Y-%W-%w")
+                        if (vaccinDate.strftime('%Y-%m-%d') in tmp['cases'].keys()):
+                            tmp['vaccin'][str(vaccinDate.strftime('%Y-%m-%d'))] = case['antal_vaccinationer']
+
             for case in self.data['cases']:
                 if case.getCountryRegion() == _country:
-                    if case.getLastUpdate().strftime('%Y-%m-%d') in tmp.keys():
-                        tmp[str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
+                    if case.getLastUpdate().strftime('%Y-%m-%d') in tmp['cases'].keys():
+                        tmp['cases'][str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
         return tmp
 
     def getListOfCountriesByNewCasesPerCap(self):

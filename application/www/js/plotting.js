@@ -46,22 +46,36 @@ fetch(`http://localhost:8080/API/confirmedCountryByDay/timespan/2020-01-21/${tod
 
   response.json().then(json => {
 
-    const labels = Object.keys(json);
+    const labels = Object.keys(json["cases"]);
 
-    var totalCases = []
-    for (var key in json) {
-      totalCases.push(json[key])
+    var totalCases = [];
+    for (var key in json["cases"]) {
+      totalCases.push(json["cases"][key]);
     }
 
-    const data = {
+    var data = {
       labels: labels,
       datasets: [{
         label: 'Total Cases',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: totalCases,
+        data: totalCases
       }]
     };
+
+    if ("vaccin" in json) {
+      var totalVaccins = [];
+      for (var key in json["vaccin"]) {
+        totalVaccins.push(json["vaccin"][key]);
+      }
+
+      data["datasets"].push({
+        label: 'Total Vaccinations',
+        backgroundColor: 'rgb(30, 99, 132)',
+        borderColor: 'rgb(30, 99, 132)',
+        data: totalVaccins
+      });
+    }
 
     const config = {
       type: 'line',
@@ -88,14 +102,14 @@ function update() {
 
     response.json().then(json => {
 
-      const labels = Object.keys(json);
+      const labels = Object.keys(json["cases"]);
 
       var totalCases = []
-      for (var key in json) {
-        totalCases.push(json[key])
+      for (var key in json["cases"]) {
+        totalCases.push(json["cases"][key])
       }
 
-      const data = {
+      var data = {
         labels: labels,
         datasets: [{
           label: 'Total Cases',
@@ -104,6 +118,20 @@ function update() {
           data: totalCases,
         }]
       };
+
+      if ("vaccin" in json) {
+        var totalVaccins = [];
+        for (var key in json["vaccin"]) {
+          totalVaccins.push(json["vaccin"][key]);
+        }
+
+        data["datasets"].push({
+          label: 'Total Vaccinations',
+          backgroundColor: 'rgb(30, 99, 132)',
+          borderColor: 'rgb(30, 99, 132)',
+          data: totalVaccins
+        });
+      }
 
       const config = {
         type: 'line',
