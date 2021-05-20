@@ -1,7 +1,7 @@
 var myChart = undefined;
 
 
-fetch("http://localhost:8080/API/countries").then(response => {
+fetch("http://" + window.location.hostname + ":8080/API/countries").then(response => {
 
   response.json().then(json => {
 
@@ -41,7 +41,7 @@ document.getElementById("updateForm").elements[1].value = "2020-01-21";
 document.getElementById("updateForm").elements[2].value = today.toString();
 
 
-fetch(`http://localhost:8080/API/confirmedCountryByDay/timespan/2020-01-21/${today}/NULL`)
+fetch(`http://` + window.location.hostname + `:8080/API/confirmedCountryByDay/timespan/2020-01-21/${today}/NULL`)
 .then(response => {
 
   response.json().then(json => {
@@ -97,7 +97,7 @@ function update() {
   const from = document.getElementById("updateForm").elements[1].value;
   const to = document.getElementById("updateForm").elements[2].value;
 
-  fetch(`http://localhost:8080/API/confirmedCountryByDay/timespan/${from}/${to}/${country}`)
+  fetch(`http://` + window.location.hostname + `:8080/API/confirmedCountryByDay/timespan/${from}/${to}/${country}`)
   .then(response => {
 
     response.json().then(json => {

@@ -144,7 +144,7 @@ def downloadData():
     os.mkdir(path)
     url = 'https://github.com/CSSEGISandData/COVID-19/archive/refs/heads/master.zip'
     r = requests.get(url, stream=True)
-    filesize = int(r.headers["content-length"])
+    filesize = int(r.headers['Content-Length'])
     filename = os.path.basename(url)
     dl_path = os.path.join(path, filename)
     chunk_size = 1024
@@ -164,7 +164,7 @@ def downloadData():
 
     url = 'https://www.svt.se/special/articledata/3362/fohm_vaccin.json'
     r = requests.get(url, stream=True)
-    filesize = int(r.headers["content-length"])
+    filesize = int(r.headers['Content-Length'])
     filename = os.path.basename(url)
     dl_path = os.path.join(path, filename)
     chunk_size = 1024

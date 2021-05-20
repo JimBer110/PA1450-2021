@@ -8,7 +8,7 @@ function download() {
   const recoveries = document.getElementById("updateForm").elements[7].checked ? 1 : 0;
 
   var link = document.createElement("a");
-  link.href = `http://localhost:8080/download/${country}/${from}/${to}/${total}${active}${deaths}${recoveries}`;
+  link.href = `http://` + window.location.hostname + `:8080/download/${country}/${from}/${to}/${total}${active}${deaths}${recoveries}`;
   link.click();
   link.remove();
 }
