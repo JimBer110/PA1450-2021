@@ -18,9 +18,20 @@
         <input type="date" name="" value="">
         <input type="date" name="" value="">
         <button type="button" name="button" onclick="update()">Update</button>
+        <br>
+        <input type="checkbox" name="Total" value="1" id="checkBox1">
+        <label for="checkBox1">Total cases</label>
+        <input type="checkbox" name="Active" value="1" id="checkBox2">
+        <label for="checkBox2">Active cases</label>
+        <input type="checkbox" name="Deaths" value="1" id="checkBox3">
+        <label for="checkBox3">Total deaths</label>
+        <input type="checkbox" name="Recovered" value="1" id="checkBox4">
+        <label for="checkBox4">Total recoveries</label>
+        <button type="button" name="button" onclick="download()">Download</button>
       </form>
       <canvas id="totalCases" width="300" height="300"></canvas>
     </div>
     <script type="text/javascript" src="./js/plotting.js"></script>
+    <script type="text/javascript" src="./js/download.js"></script>
   </body>
 </html>
