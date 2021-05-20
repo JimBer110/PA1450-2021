@@ -2,6 +2,7 @@
 import datetime
 import datetime_calendar
 import recent_cases
+import total_cases_capita
 
 class API:
     def __init__(self, data):
@@ -111,6 +112,13 @@ class API:
 
     def getListOfCountriesByNewCasesPerCap(self):
         result, countries = recent_cases.getListCountriesBasedOnNewCasesPerCapita()
+        tmp = {'countries': []}
+        for i in result:
+            tmp['countries'].append((i, countries[i]))
+        return tmp
+
+    def getListOfCountriesByTotalCasesPerCap(self):
+        result, countries = total_cases_capita.getListCountriesBasedOnTotalCasesPerCapita()
         tmp = {'countries': []}
         for i in result:
             tmp['countries'].append((i, countries[i]))

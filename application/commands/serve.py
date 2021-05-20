@@ -41,6 +41,10 @@ def serve(options, apiObject):
     def newCasesPerCapita():
         return apiObject.getListOfCountriesByNewCasesPerCap()
 
+    @app.route("/API/totalCasesPerCapita")
+    def totalCasesPerCapita():
+        return apiObject.getListOfCountriesByTotalCasesPerCap()
+
     @app.route("/API/data")
     def apiData():
         return apiObject.getAllData()
