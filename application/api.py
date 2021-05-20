@@ -8,9 +8,6 @@ import os
 class API:
     def __init__(self, data):
         self.data = data
-        self.vaccinations = None;
-        with open(os.path.join(os.path.dirname(__file__), 'vaccin.json'), "r") as f:
-            self.vaccinations = json.load(f)
 
 
     def reformatData(self, _case):
@@ -112,7 +109,7 @@ class API:
 
         else:
             if _country == "Sweden":
-                for case in self.vaccinations['vaccinationer_tidsserie']:
+                for case in self.data['vaccinations']['vaccinationer_tidsserie']:
                     if (case['mapregion'] != "Sverige"):
                         continue
                     for i in range(7):
@@ -125,6 +122,7 @@ class API:
                     if case.getLastUpdate().strftime('%Y-%m-%d') in tmp['cases'].keys():
                         tmp['cases'][str(case.getLastUpdate().strftime('%Y-%m-%d'))] += case.getConfirmed()
         return tmp
+
 
     def getListOfCountriesByNewCasesPerCap(self):
         result, countries = recent_cases.getListCountriesBasedOnNewCasesPerCapita()

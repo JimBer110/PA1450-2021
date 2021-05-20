@@ -7,6 +7,7 @@ from tqdm import tqdm
 from pathlib import Path
 import requests
 import sys
+import json
 
 def importData():
     cases = []
@@ -29,11 +30,13 @@ def importData():
                     else:
                         countries[country][province].append(len(cases))
                     createCase(cases,covid_case,form)
-    print("\nData imported successfully\n")
-    removeData(os.path.dirname(__file__)+"/covid_case_data/")
     data = {}
+    with open(os.path.dirname(__file__)+'/covid_case_data/fohm_vaccin.json', "r") as f:
+        data['vaccinations'] = json.load(f)['sheets']
     data['cases'] = cases
     data['countries'] = countries
+    print("\nData imported successfully\n")
+    removeData(os.path.dirname(__file__)+"/covid_case_data/")
     return data
 
 def createCase(listOfCases,caseToAdd,form):
@@ -146,8 +149,8 @@ def downloadData():
     dl_path = os.path.join(path, filename)
     chunk_size = 1024
     with r, open(dl_path, "wb") as f, tqdm(
-            unit="B",  
-            unit_scale=True,  
+            unit="B",
+            unit_scale=True,
             unit_divisor=1024,
             total=filesize,
             desc="Fetching " + filename
@@ -155,6 +158,23 @@ def downloadData():
         for chunk in r.iter_content(chunk_size=chunk_size):
             datasize = f.write(chunk)
             progress.update(datasize)
-    print("\nExtracting files")
+    print("\nExtracting files\n")
     with ZipFile(path+'master.zip', 'r') as zipObj:
         zipObj.extractall(path)
+
+    url = 'https://www.svt.se/special/articledata/3362/fohm_vaccin.json'
+    r = requests.get(url, stream=True)
+    filesize = int(r.headers["content-length"])
+    filename = os.path.basename(url)
+    dl_path = os.path.join(path, filename)
+    chunk_size = 1024
+    with r, open(dl_path, "wb") as f, tqdm(
+            unit="B",
+            unit_scale=True,
+            unit_divisor=1024,
+            total=filesize,
+            desc="Fetching " + filename
+    ) as progress:
+        for chunk in r.iter_content(chunk_size=chunk_size):
+            datasize = f.write(chunk)
+            progress.update(datasize)
