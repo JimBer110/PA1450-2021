@@ -30,7 +30,7 @@ def createFile(inData,form,country):
         for case in inData['cases']:
             time = case['update'].strftime('%Y-%m-%d')
             province = case['province']
-            if case['country']== country:   
+            if case['country']== country:
                 if time not in export[country].keys():
                     export[country].update({time:{}})
                 export[country][time].update({province:{}})
@@ -42,6 +42,6 @@ def createFile(inData,form,country):
                     export[country][time][province].update({'Deaths':case['deaths']})
                 if form[3]=='1':
                     export[country][time][province].update({'Recovered':case['recovered']})
-    with open('export.json', 'w') as outfile: 
+    with open('export.json', 'w') as outfile:
         json.dump(export, outfile)
     return os.path.dirname(__file__)

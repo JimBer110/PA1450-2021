@@ -86,7 +86,7 @@ def serve(options, apiObject):
         if _data == "NULL":
             _data = "1111"
         temp = apiObject.getDataInTimespan(_from, _to)
-        return send_from_directory(exporter.createFile(temp,_data,_country), 'export.json',as_attachment=True)
+        return send_from_directory(exporter.createFile(temp,_data,_country), 'export.json', as_attachment=True)
 
     app.run(host=options.address, port=options.port, debug=False)
 
