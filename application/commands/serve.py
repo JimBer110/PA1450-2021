@@ -79,7 +79,7 @@ def serve(options, apiObject):
             _country = "worldwide"
         return apiObject.getTotalCasesForCountryInTimespan(_from, _to, _country)
 
-    @app.route("/API/vaccinationdata")   
+    @app.route("/API/vaccinationdata")
     def vac_data():
         return apiObject.vaccinationsdata()
 
@@ -106,4 +106,3 @@ def create_parser(subparsers):
     # Add optional parameters to control the server configuration
     parser.add_argument("-p", "--port", default=8080, type=int, help="The port to listen on")
     parser.add_argument("--address", default="0.0.0.0", help="The address to listen on")
-

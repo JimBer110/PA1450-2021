@@ -18,11 +18,11 @@ def getListCountriesBasedOnTotalCasesPerCapita():
         td = row.find_all("td")
         if td[1] and td[10].text !="":
             l.append(float(td[10].text.replace(",","")))
-            countries[td[1].text]=td[10].text 
+            countries[td[1].text]=td[10].text
     l.sort(reverse= True)
 
     m = []
-    for i in l: 
+    for i in l:
         for key in countries.keys():
             if float(countries[key].replace(",",""))==i:
                 if key not in m:
@@ -31,9 +31,5 @@ def getListCountriesBasedOnTotalCasesPerCapita():
 
 if __name__ == "__main__":
     m, countries = getListCountriesBasedOnTotalCasesPerCapita()
-    for j in m: 
+    for j in m:
         print(j+ "\t\t" + str(countries[j]))
-
-
-
-

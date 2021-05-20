@@ -141,4 +141,3 @@ class API:
 
     def vaccinationsdata(self):
         return self.data['vaccinations']
-        

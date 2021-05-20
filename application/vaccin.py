@@ -8,7 +8,7 @@ for vaccinationer in data['vaccinationer_tidsserie']:
 
 for vaccinationer in data['vaccinerade_alder']:
     del (vaccinationer['slug'], vaccinationer['region'],vaccinationer['f_15l'],vaccinationer['f_70p'],vaccinationer['key'],vaccinationer['pop_15l'], vaccinationer['pop_70p'], vaccinationer['region_cat'])
-   
+
 for vaccinationer in data['vaccinerade_kommun']:
     del (vaccinationer['slug'], vaccinationer['f_15l'],vaccinationer['f_70p'],vaccinationer['key'],vaccinationer['knkod'],vaccinationer['knnamn'], vaccinationer['pop_70p'], vaccinationer['pop_15l'], vaccinationer['region_cat'])
 
@@ -23,4 +23,3 @@ for vaccinationer in data['vaccinerade_tidsserie']:
 
 with open('ny_vaccin.json', 'w') as f:
     json.dump(data, f, indent=2)
-
