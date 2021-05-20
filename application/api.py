@@ -130,3 +130,7 @@ class API:
         for i in result:
             tmp['countries'].append((i, countries[i]))
         return tmp
+
+    def vaccinationsdata(self):
+        return self.data['vaccinations']
+        
